@@ -1,18 +1,13 @@
-#include <stdlib.h>
-#include <Arduino.h>
-#include <ESP32_JPEG_Library.h>
-
 #include "SD_MMC.h"
+#include "jpeg_dec.h"
+#include "pins_config.h"
+#include "src/lcd/nv3401a_lcd.h"
+nv3401a_lcd lcd = nv3401a_lcd(TFT_QSPI_CS, TFT_QSPI_SCK, TFT_QSPI_D0, TFT_QSPI_D1, TFT_QSPI_D2, TFT_QSPI_D3, TFT_QSPI_RST);
 
 #define TEST_NUM 10
 #define TEST_IMAGE_FILE_PATH "/img_480_272.jpg"
 #define TEST_IMAGE_WIDTH (480)
 #define TEST_IMAGE_HEIGHT (272)
-
-#include "jpeg_dec.h"
-#include "pins_config.h"
-#include "src/lcd/nv3401a_lcd.h"
-nv3401a_lcd lcd = nv3401a_lcd(TFT_QSPI_CS, TFT_QSPI_SCK, TFT_QSPI_D0, TFT_QSPI_D1, TFT_QSPI_D2, TFT_QSPI_D3, TFT_QSPI_RST);
 
 //jpeg绘制回调
 static int jpegDrawCallback(jpeg_dec_io_t *jpeg_io,jpeg_dec_header_info_t *out_info) {
