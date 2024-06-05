@@ -10,8 +10,8 @@ nv3401a_lcd lcd = nv3401a_lcd(TFT_QSPI_CS, TFT_QSPI_SCK, TFT_QSPI_D0, TFT_QSPI_D
 #define TEST_IMAGE_HEIGHT (272)
 
 //jpeg绘制回调
-static int jpegDrawCallback(jpeg_dec_io_t *jpeg_io,jpeg_dec_header_info_t *out_info) {
-  lcd.draw16bitbergbbitmap(0, jpeg_io->output_line-jpeg_io->cur_line, out_info->width, jpeg_io->cur_line, (uint16_t *)jpeg_io->outbuf); 
+static int jpegDrawCallback(jpeg_dec_io_t *jpeg_io, jpeg_dec_header_info_t *out_info) {
+  lcd.draw16bitbergbbitmap(0, jpeg_io->output_line - jpeg_io->cur_line, out_info->width, jpeg_io->cur_line, (uint16_t *)jpeg_io->outbuf);
   return 1;
 }
 
@@ -45,22 +45,11 @@ void setup() {
   jpeg_error_t ret = JPEG_ERR_OK;
   uint32_t t = millis();
   for (int i = 0; i < TEST_NUM; i++) {
-    ret = esp_jpeg_decoder_one_picture_block_out(image_jpeg, image_jpeg_size,jpegDrawCallback);
-    if (ret != JPEG_ERR_OK) {
-      Serial.printf("JPEG decode failed - %d\n", (int)ret);
-      break;
-    }
+    esp_jpeg_decoder_one_picture_block_out(image_jpeg, image_jpeg_size, jpegDrawCallback);
   }
   Serial.printf("JPEG decode %d images, average time is %d ms\n", TEST_NUM, (millis() - t) / TEST_NUM);
   jpeg_free_align(image_jpeg);
-
-  if (ret != JPEG_ERR_OK) {
-    return;
-  } else {
-    Serial.println("JPEG decode OK");
-  }
 }
 
 void loop() {
-
 }

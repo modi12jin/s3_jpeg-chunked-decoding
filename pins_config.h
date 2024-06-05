@@ -10,6 +10,7 @@
 #define TFT_QSPI_D2 40
 #define TFT_QSPI_D3 39
 #define TFT_QSPI_RST -1
+#define TFT_TE 0
 #define TFT_BL 1
 
 #define TP_I2C_SDA 8
